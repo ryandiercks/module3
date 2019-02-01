@@ -1,3 +1,4 @@
+
 1. Clean code is code that easy to read, understand, and maintain
 Clean code is important because when we work with other developers and code becomes more complex, clean code will make everything easy to control.
 Clean code helps to produce the high-quality code and solve problems faster. 
