@@ -1,0 +1,170 @@
+1. Clean code is code that easy to read, understand, and maintain
+Clean code is important because when we work with other developers and code becomes more complex, clean code will make everything easy to control.
+Clean code helps to produce the high-quality code and solve problems faster. 
+
+2. If code was not created to an acceptable standard, code potentially have issues and errors. The code may be defective and bring additional errors in the long run, which 
+will cause more severe issues and possibly mulfunction. 
+
+3. Function is not a clean code because it is not properly indented and has many comments.
+
+FUNCTION do(x, degree)              
+ IF degree = "F" THEN               
+     SET z to (x-32) * (5/9)     	 //Formula to convert degrees fahrenheit to celsius
+     PRINT z                       
+ ELSE IF degree = "C" THEN          
+     SET z to x * 1.8000 + 32.00   	// Formula to convert degrees celsius to fahrenheit
+     PRINT z                       
+ END IF
+END FUNCTION
+
+4. Yes, It is clean code. The variables/function are well named, the function is self-explanatory, the code is properly indented, and it is easy to understand.
+
+5. 
+a. 
+	FUNCTION checkOutCustomer(subTotal, discountRate, paymentType)
+   	    total = subTotal * discountRate + (subTotal * tax)
+   	    PRINT "Your total due is: " + total
+
+   	    IF paymentType = 'CASH' THEN
+      		 CALL getPayment RETURNING amount
+       		 PRINT "Change due: " + amount - total
+   	    ELSE IF paymentType = 'CREDIT CARD' THEN
+       		 CALL getPayment RETURNING amount
+       		 PRINT "Your credit card has been charged: " + total
+   	    END IF
+	END FUNCTION
+
+b. 
+	FUNCTION checkoutBook(book, guest)
+ 	    IF guest.accountActive THEN
+		CALL printBook WITH book and guest 
+            ELSE
+     	        PRINT "Unable to check out book."
+ 	    END IF
+	END FUNCTION
+
+	FUNCTION printBook(book, guest)
+	    IF NOT(guest.hasOverdueBooks) AND guest.outstandingFees = 0 THEN
+           	APPEND book to guest.books
+           	SET book.status to "Checked Out"
+                PRINT "Your books have been issued."
+            END IF
+	END FUNCTION
+
+
+c. 
+	CLASS BankAccount
+ 	     FUNCTION displayBalance
+    		PRINT balance
+ 	     END FUNCTION
+
+ 	     FUNCTION deposit(amount)
+                SET balance to balance + amount
+             END FUNCTION
+
+             FUNCTION withdraw(amount)
+                IF balance > amount THEN
+                   SET balance to balance - amount
+                END IF
+             END FUNCTION
+	END CLASS
+
+	CLASS CreditCard
+     	      FUNCTION creditCardOffer
+                   IF NOT(customer.hasCreditCard) THEN
+                        CALL offerCreditCard
+                   END IF
+              END FUNCTION
+
+ 	      FUNCTION checkStatus
+     		   IF NOT(customer.hasCheckingAccount) THEN
+         		CALL offerCheckingAccount
+     		   END IF
+ 	      END FUNCTION
+
+ 		....
+ 		....
+ 		....
+
+	END CLASS
+
+6. 
+	function checkSquareRoot(arrayNumber){
+
+  	    let result = 0;
+
+  	    for(let i = 0; i<arrayNumber.length; i++){
+
+	       result += arrayNumber[i]
+ }
+ 
+
+	    checkPerfectSquare(result);
+
+		}
+
+;
+
+	function checkPerfectSquare(result){
+
+   	    if(Math.sqrt(result) %1 === 0){
+    	       console.log( Math.sqrt(result))
+  }
+	    else{
+
+	       console.log(result);
+  }
+
+		}
+
+;
+
+	checkSquareRoot([10,1,4,6,1,1,2]);
+
+
+7. 
+function checkDuplicate(arr) {
+    let object={},
+        newArr=[]
+        
+    for (var i=0;i<arr.length;i++) {
+      let item = arr[i];
+      object[item] = object[item] >= 1 ? object[item] + 1 : 1;
+      
+      if (object[item] > 1) {
+        newArr.push(item);
+      	};
+ 	 };
+
+     return (newArr != "" ? true : false);
+  }
+  
+  console.log(checkDuplicate([1,5,2,2,2,20]))
+
+8. 
+function checkAnagram(string1, string2){
+    let arrayString1 = convertStringToArrayAndSort(string1);
+    let arrayString2 = convertStringToArrayAndSort(string2);
+
+    if (arrayString1.length !== arrayString2.length){
+        return false;
+    };
+
+    for(let i = 0; i<arrayString1.length; i++){
+        if(arrayString1[i] !== arrayString2[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
+function convertStringToArrayAndSort(string){
+    let arrayString =[];
+    arrayString.push(...string);
+      
+    return arrayString.sort();
+}
+
+console.log(checkAnagram('gnistr','string'));
+
+
