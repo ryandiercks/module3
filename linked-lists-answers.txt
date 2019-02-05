@@ -1,0 +1,133 @@
+Exercises
+
+1. What are some pros and cons of using linked lists instead of arrays?
+
+Pros:
+* Our list never contains empty placeholders, since each one only points towards another instance. 
+* The Operating System may use any available memory location to store it because each node is independent in memory.  This is probably the most important advantage over Arrays. 
+Cons:
+Since there is not an index to use to fine the node, it can be very inefficient to access an element in the list, because they have to be address in order. This starts from the first node, called the head. Arrays, on the other hand, can be access immediately by stating the index of the element within the array. 
+
+2. Come up with a real world example of a linked list.
+
+An example might be trying to find a store in a mall without a map. They don't have addresses, so there is no index. But at each store, you can see the name of the store in front of you, and the fact that there is only one direction to go to see the next store -- in a linear fashion. You go from store to store along that path until you find the store you want. 
+
+
+Programming Questions
+
+1. The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode for a push function for a singly linked list. However, there is something wrong with it. Submit both an explanation of the bug and a functional implementation of the method.
+
+The bug occurs when the head node DOES exist, and we are trying to move down the linked list. If we are in that state, we do NOT want to set current to head, but wand to current to node. 
+
+It’s also not obvious which linked list is being handled by this function. I will add that to my JavaScript. 
+
+FUNCTION push(element)
+CREATE node
+SET node.value TO element
+SET node.next TO null
+
+IF the head node does not exist
+ THEN SET head to node
+ELSE
+// SET current.value to node
+SET current.next to node
+
+END IF
+END FUNCTION
+
+
+JavaScript:
+
+function pushLink(element, linkedList) {
+
+      value = element
+      next = "null"
+
+  if (linkedList.length == 0) {
+        console.log("hjere")
+    linkedList = element
+  } 
+  else {
+       linkedList = linkedList + " -> " + value
+
+  }
+
+    return linkedList
+}
+
+ linker = "a -> c -> d -> f"
+ console.log("Orginal linked List: " + linker)
+ console.log(pushLink("b", linker))
+
+This code leads to this result: 
+"Orginal linked List: a -> c -> d -> f"
+"a -> c -> d -> f -> b"
+
+
+
+
+2. Given an unsorted singly linked list, remove all duplicates from the linked list.
+Example
+Input: a -> c -> d -> d -> a
+Output: a -> c -> d
+
+JavaScript: 
+
+linkedList = "a -> c -> d -> d -> a"
+
+function removeDuplicateLinks(inputLinkedList) {
+
+    var inputLinkedArray = inputLinkedList.split(" -> ");
+    console.log(inputLinkedArray)
+    var x = inputLinkedArray.length -1
+    var savedArray = []
+
+    for (i=0; i <= x; i++) {
+        duplicateCounter = 0;
+        var duplicateCheck = savedArray.indexOf(inputLinkedArray[i]);
+        if (duplicateCheck == -1) {savedArray.push(inputLinkedArray[i])}
+    }
+    outputLinkString = savedArray.join(" -> ")
+    return ("Input: " + inputLinkedList + "; Returns: "+ outputLinkString)
+}
+
+console.log(removeDuplicateLinks(linkedList))
+
+Returns:
+
+"Input: a -> c -> d -> d -> a; Returns: a -> c -> d"
+
+Another Example: 
+"Input: a -> c -> d -> d -> f -> d -> c -> d -> f -> c -> d -> d -> f -> d -> c -> d -> f; Returns: a -> c -> d -> f"
+
+
+
+3. Given an unsorted singly linked list, reverse it.
+Example
+Input: a -> b -> c -> d
+Output: d -> c -> b -> a
+
+JavaScript:
+
+function reverseList(inputLinkedList) {
+var inputLinkedArray = inputLinkedList.split(" -> ");
+     x = inputLinkedArray.length - 1
+     reverseArray = []
+     for (i = 0; i <= x; i++) {
+        reverseArray[i] = inputLinkedArray[x-i]
+     }
+     reverseList = reverseArray.join(" -> ")
+     return reverseList
+}
+
+link2 = "a -> c -> d -> v -> f -> b -> k"
+
+console.log("Original Linked List: " + link2)
+console.log(reverseList(link2))
+
+Results:
+"Original Linked List: a -> b -> c -> d"
+"d -> c -> b -> a"
+
+"Original Linked List: a -> c -> d -> v -> f -> b -> k"
+"k -> b -> f -> v -> d -> c -> a"
