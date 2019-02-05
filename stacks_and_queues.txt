@@ -1,0 +1,75 @@
+Exercises 
+
+1. What is the main difference between a stack and a queue? 
+
+A stack returns an item with FIFO (First In First Out) priority  
+A queue returns an item with LIFO (Last In First Out) priority  
+
+2. What are the similarities between stacks and queues?
+
+Both data structure returns an item based on the structured priority. 
+
+3. Imagine you are an engineer tasked with implementing the UNDO and REDO options 
+in a word processor such as Microsoft Word. 
+Which data structure would you use for each option and why?
+
+UNDO: a stack data structure because the latest change has to be returned. 
+REDO: a queue data strcutre because the corrected version has to be returned from the beginning. 
+
+
+Programming 
+
+1. 
+
+function reverse(original){
+	var stack = [];
+	for(let i=0; original.length > i; i++){
+		stack.push(original[i])
+	}
+	var reversed = '';
+	while(stack.length > 0){
+		var letter = stack.pop();
+		reversed += letter;
+	}
+return reversed;
+}
+
+2. 
+
+FUNCTION queuePop (arr, value) // set q as queue and val as as current value
+    SET the size of current arr as s
+    Add val to arr  
+
+    FOR counter = 0 to s step 1 [counter, number]
+        pop the element 
+        push the element 
+        // By doing this, the first input comes to the first index of the queue 
+
+    pop the first element 
+
+END FUNCTION  
+
+function queuePop(arr, value){
+var s = arr.length;
+arr.unshift(value);
+for(let i = 0; s > i; i++){
+	var popItem = arr.pop();
+	arr.unshift(popItem);
+}
+return arr.pop();
+}
+
+3. 
+
+class Queue {
+    constructor(){
+        this.items = [];
+    }
+    enqueue(element){
+        this.items.unshift(element);
+    }
+    dequeue(){
+        var temp = this.items.pop();
+        return temp;
+    }
+}
