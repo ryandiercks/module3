@@ -13,14 +13,13 @@ Since there is not an index to use to fine the node, it can be very inefficient 
 An example might be trying to find a store in a mall without a map. They don't have addresses, so there is no index. But at each store, you can see the name of the store in front of you, and the fact that there is only one direction to go to see the next store -- in a linear fashion. You go from store to store along that path until you find the store you want. 
 
 
-Programming Questions
+PROGRAMMING QUESTIONS
 
-1. The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode for a push function for a singly linked list. However, there is something wrong with it. Submit both an explanation of the bug and a functional implementation of the method.
+1. The linked list push function should take a value, create a node, and add it to the end of a list. Below is pseudocode 
+for a push function for a singly linked list. However, there is something wrong with it. Submit both an explanation of the 
+bug and a functional implementation of the method.
 
-The bug occurs when the head node DOES exist, and we are trying to move down the linked list. If we are in that state, we do NOT want to set current to head, but wand to current to node. 
-
-It’s also not obvious which linked list is being handled by this function. I will add that to my JavaScript. 
-
+---
 FUNCTION push(element)
 CREATE node
 SET node.value TO element
@@ -29,39 +28,40 @@ SET node.next TO null
 IF the head node does not exist
  THEN SET head to node
 ELSE
-// SET current.value to node
-SET current.next to node
-
+ SET current to head
+ SET current.next to node
 END IF
 END FUNCTION
+---
 
+The bug with this code can be found within this part:
+---
+ELSE
+ SET current to head
+ SET current.next to node
 
-JavaScript:
+The code that is being written will put the created node behind the head(if the list is not empty),
+no matter how many nodes are already on the list.
+So this code will only work correctly if there are going to be
+one or two nodes on the list. Three or more, and the code will not work as you want it to. 
 
-function pushLink(element, linkedList) {
+Here is a functional implementation of the method:
 
-      value = element
-      next = "null"
-
-  if (linkedList.length == 0) {
-        console.log("hjere")
-    linkedList = element
-  } 
-  else {
-       linkedList = linkedList + " -> " + value
-
+function push(element) {
+  var node = new Node(element);
+  node.value = element;
+  node.next = null;
+  if (this.head == null) {
+    this.head = node;
+  } else {
+    current = this.head;
+    while (current.next) {
+      current = current.next;
+    }
+    current.next = node;
   }
-
-    return linkedList
 }
 
- linker = "a -> c -> d -> f"
- console.log("Orginal linked List: " + linker)
- console.log(pushLink("b", linker))
-
-This code leads to this result: 
-"Orginal linked List: a -> c -> d -> f"
-"a -> c -> d -> f -> b"
 
 
 
@@ -71,34 +71,22 @@ Example
 Input: a -> c -> d -> d -> a
 Output: a -> c -> d
 
-JavaScript: 
-
-linkedList = "a -> c -> d -> d -> a"
-
-function removeDuplicateLinks(inputLinkedList) {
-
-    var inputLinkedArray = inputLinkedList.split(" -> ");
-    console.log(inputLinkedArray)
-    var x = inputLinkedArray.length -1
-    var savedArray = []
-
-    for (i=0; i <= x; i++) {
-        duplicateCounter = 0;
-        var duplicateCheck = savedArray.indexOf(inputLinkedArray[i]);
-        if (duplicateCheck == -1) {savedArray.push(inputLinkedArray[i])}
+function removeDuplicates() {
+  var current = this.head;
+  while (current) {
+    let temp = current;
+    while (temp.next) {
+      if (current.value === temp.next.value) {
+        temp.next = temp.next.next;
+      }
+      temp = temp.next;
     }
-    outputLinkString = savedArray.join(" -> ")
-    return ("Input: " + inputLinkedList + "; Returns: "+ outputLinkString)
+    current = current.next;
+  }
 }
 
-console.log(removeDuplicateLinks(linkedList))
 
-Returns:
 
-"Input: a -> c -> d -> d -> a; Returns: a -> c -> d"
-
-Another Example: 
-"Input: a -> c -> d -> d -> f -> d -> c -> d -> f -> c -> d -> d -> f -> d -> c -> d -> f; Returns: a -> c -> d -> f"
 
 
 
@@ -107,27 +95,15 @@ Example
 Input: a -> b -> c -> d
 Output: d -> c -> b -> a
 
-JavaScript:
-
-function reverseList(inputLinkedList) {
-var inputLinkedArray = inputLinkedList.split(" -> ");
-     x = inputLinkedArray.length - 1
-     reverseArray = []
-     for (i = 0; i <= x; i++) {
-        reverseArray[i] = inputLinkedArray[x-i]
-     }
-     reverseList = reverseArray.join(" -> ")
-     return reverseList
+function reverseList() {
+  var current = this.head;
+  var previous;
+  var temporary;
+  while (current) {
+    temporary = current.next;
+    current.next = previous;
+    previous = current;
+    current = temporary;
+  }
+  return previous;
 }
-
-link2 = "a -> c -> d -> v -> f -> b -> k"
-
-console.log("Original Linked List: " + link2)
-console.log(reverseList(link2))
-
-Results:
-"Original Linked List: a -> b -> c -> d"
-"d -> c -> b -> a"
-
-"Original Linked List: a -> c -> d -> v -> f -> b -> k"
-"k -> b -> f -> v -> d -> c -> a"
