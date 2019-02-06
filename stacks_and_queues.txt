@@ -13,9 +13,8 @@ Both data structure returns an item based on the structured priority.
 in a word processor such as Microsoft Word. 
 Which data structure would you use for each option and why?
 
-UNDO: a stack data structure because the latest change has to be returned. 
-REDO: a queue data strcutre because the corrected version has to be returned from the beginning. 
-
+I would use LIFO for both to keep the changes to the document in order in the way they were written.
+If it were FIFO they would skip all changes and give the first change made to the page 
 
 Programming 
 
@@ -59,6 +58,8 @@ for(let i = 0; s > i; i++){
 return arr.pop();
 }
 
+
+#### DIDNT KNOW IF THIS WAS THE #3 YOU WERE TALKING ABOUT
 3. 
 
 class Queue {
@@ -72,4 +73,28 @@ class Queue {
         var temp = this.items.pop();
         return temp;
     }
+}
+
+
+or 
+
+
+class Queue {
+	constructor(){
+		this.queue = [1,2,3,4,5,6];
+	}
+	
+	queuePop(){
+      var temp = this.queue.splice(this.queue.length -1,1);
+      return temp;
+	}
+	
+
+	enqueue(element){
+		this.queue.push(element)
+	}
+	
+	dequeue(){
+		return this.queue.shift();
+	}
 }
