@@ -13,8 +13,11 @@ Both data structure returns an item based on the structured priority.
 in a word processor such as Microsoft Word. 
 Which data structure would you use for each option and why?
 
-I would use LIFO for both to keep the changes to the document in order in the way they were written.
-If it were FIFO they would skip all changes and give the first change made to the page 
+For the UNDO option I would use a stack data structure, because each action gets placed on right after the other and 
+when the UNDO option is used, the first action that should appear is the last one that was done (LIFO). On the other hand 
+I would use a queue data structure for the REDO option, because whenever the REDO option is called the actions should execute
+in order of FIFO.
+
 
 Programming 
 
@@ -59,8 +62,8 @@ return arr.pop();
 }
 
 
-#### DIDNT KNOW IF THIS WAS THE #3 YOU WERE TALKING ABOUT
-3. 
+
+1. 
 
 class Queue {
     constructor(){
@@ -76,25 +79,3 @@ class Queue {
 }
 
 
-or 
-
-
-class Queue {
-	constructor(){
-		this.queue = [1,2,3,4,5,6];
-	}
-	
-	queuePop(){
-      var temp = this.queue.splice(this.queue.length -1,1);
-      return temp;
-	}
-	
-
-	enqueue(element){
-		this.queue.push(element)
-	}
-	
-	dequeue(){
-		return this.queue.shift();
-	}
-}
