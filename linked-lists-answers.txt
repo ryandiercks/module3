@@ -47,63 +47,169 @@ one or two nodes on the list. Three or more, and the code will not work as you w
 
 Here is a functional implementation of the method:
 
-function push(element) {
-  var node = new Node(element);
-  node.value = element;
-  node.next = null;
-  if (this.head == null) {
-    this.head = node;
-  } else {
-    current = this.head;
-    while (current.next) {
-      current = current.next;
-    }
-    current.next = node;
-  }
+function push(element){
+	var newnode = new Node(element)
+	newnode.next= null;
+	if(headNode == null){
+		var headNode = newnode;
+	}else{
+		var current = headNode;
+		
+		while(current.next !== null){
+			current = current.next;
+		}
+		current.next = newNode;
+	}
 }
-
-
 
 
 
 2. Given an unsorted singly linked list, remove all duplicates from the linked list.
-Example
-Input: a -> c -> d -> d -> a
-Output: a -> c -> d
 
-function removeDuplicates() {
-  var current = this.head;
-  while (current) {
-    let temp = current;
-    while (temp.next) {
-      if (current.value === temp.next.value) {
-        temp.next = temp.next.next;
-      }
-      temp = temp.next;
-    }
-    current = current.next;
-  }
+class Node {
+	constructor(value){
+		this.value = value;
+		this.next = null;
+	}
 }
 
+class LinkedList {
+	constructor() {
+    this.head = null;
+    this.length = 0;
+  }
+  
+	create(value) {
+		var newNode = new Node(value);
+    
+		if (this.head === null) {
+		this.head = newNode;
+		} else {
+		var currentNode = this.head;
+		
+		while (currentNode.next !== null) {
+			currentNode = currentNode.next;
+		}
+      
+		currentNode.next = newNode;
+		}
+		this.length++;
+	}
+  
+  
+	print() {
+		var currentNode = this.head;
+		
+		while (currentNode !== null) {
+		console.log(currentNode.value);
+		currentNode = currentNode.next;
+		}
+	}
+	remove(){
+		var searcher = this.head;
+		var current = searcher.next;
+		var prev;
+		while (searcher !== null){
+			while(current !== null){
+				if(searcher.value == current.value && searcher.next.value == current.value){
+					searcher.next = current.next;
+					current = searcher.next;
+					this.length -=1;
+				}
+				else if(searcher.value == current.value){
+					prev.next = current.next;
+					current = prev.next;
+					this.length -=1;
+				}
+				else{
+					prev = current;
+					current = current.next;
+				}
+			}
+			searcher = searcher.next;
+			if(searcher === null){
+			}else{current = searcher.next}
+		}
+	}
+}
 
+var testList = new LinkedList();
 
+testList.create('a');
+testList.create('c');
+testList.create('a');
+testList.create('c');
+testList.create('b');
 
-
+console.log("Linked list before removing duplicates ");
+testList.print();
+testList.remove();
+console.log("Linked list after removing duplicates ");
+testList.print();
 
 3. Given an unsorted singly linked list, reverse it.
-Example
-Input: a -> b -> c -> d
-Output: d -> c -> b -> a
-
-function reverseList() {
-  var current = this.head;
-  var previous;
-  var temporary;
-  while (current) {
-    temporary = current.next;
-    current.next = previous;
-    previous = current;
-    current = temporary;
-  }
-  return previous;
+class Node {
+	constructor(value){
+		this.value = value;
+		this.next = null;
+	}
 }
+
+class LinkedList {
+	constructor() {
+    this.head = null;
+    this.length = 0;
+  }
+  
+	create(value) {
+		var newNode = new Node(value);
+    
+		if (this.head === null) {
+		this.head = newNode;
+		} else {
+		var currentNode = this.head;
+		
+		while (currentNode.next !== null) {
+			currentNode = currentNode.next;
+		}
+      
+		currentNode.next = newNode;
+		}
+		this.length++;
+	}
+  
+  
+	print() {
+		var currentNode = this.head;
+		
+		while (currentNode !== null) {
+		console.log(currentNode.value);
+		currentNode = currentNode.next;
+		}
+	}
+	reverse(){
+		var current = this.head;
+		var prev = null;
+		var next;
+		while (current){
+			next = current.next; 
+			current.next = prev; 
+			prev = current; 
+			current = next;
+		}
+      this.head = prev;
+	}
+}
+
+var testList = new LinkedList();
+
+testList.create('a');
+testList.create('b');
+testList.create('c');
+testList.create('d');
+
+console.log("Before list is reversed");
+testList.print();
+testList.reverse();
+console.log("After list is reversed");
+testList.print();
