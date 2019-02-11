@@ -1,0 +1,231 @@
+1.What is a hash table?
+
+It is a data structure using key and value pairs.
+
+2.What is hashing?
+
+Is the process of turning a string into a number used as a key.
+
+3.How does a hash table store data?
+
+A hash table stores data in a array.
+
+4.How are hash tables and objects different?
+
+Hash tables are better at looking up infomation.
+
+5.Determine whether you would use a hash table or an object to store each of the following pieces of data:
+
+Hash Table 	-A list of pets and their unique names.
+Object 		-The name, age, and the birthday of your best friend.
+Hash Table 	-The name and location of every company in a given city.
+Object 		-All of the books checked out from a library by a particular individual.
+Object 		-The primary and secondary phone numbers for a contact.
+
+6.
+
+class hashTable{
+  constructor(max){
+    this.storage = [];
+    this.maxStorage = max;
+  }
+  hash(phone){
+      var hashCode =0;
+      for (var i =0; i<phone.length;i++){
+        hashCode += phone.charCodeAt(i);
+      }
+      return hashCode % this.maxStorage;
+    }
+  
+  add(name,address,phone){
+    var index = this.hash(phone);
+    if(this.storage[index] === undefined){
+    this.storage[index]=[name,address,phone];
+    }else{
+      while(this.storage[index] !== undefined){
+		  index += 1;
+		  if(this.storage[index] === undefined){
+			this.storage[index]=[name,address,phone];
+			index +=1;
+		  }
+	  }
+    }
+  }
+  find(phone){
+    var index = this.hash(phone);
+    if(this.storage[index] === undefined){
+      return 'No results';
+    }else if(this.storage[index][2] == phone){
+       return(this.storage[index]);
+    }else{
+      while(this.storage[index][2] !== phone){
+		  index += 1;
+		  if(this.storage[index][2] === phone){
+			return this.storage[index];
+		  }
+	  }
+    }
+  }
+  
+  
+}
+
+
+var test = new hashTable(100);
+
+test.add('stanley','1st street','1234567890');
+test.add('sam','2nd street','0001112222');
+test.add('fred','3rd street','0987654321');
+test.find('1234567890'));
+test.find('0987654321'))
+test.find('004'))
+
+7.Build a system that allows a store owner to track their store's inventory using a hash table for storage.
+
+class hashTable{
+  constructor(max){
+    this.storage = [];
+    this.maxStorage = max;
+  }
+  hash(itemId){
+      var hashCode =0;
+      for (var i =0; i<itemId.length;i++){
+        hashCode += itemId.charCodeAt(i);
+      }
+      return hashCode % this.maxStorage;
+    }
+  
+  add(itemId,name,inventory){
+    var index = this.hash(itemId);
+    if(this.storage[index] === undefined){
+    this.storage[index]=[itemId,name,inventory];
+    }else{
+      while(this.storage[index] !== undefined){
+		  index += 1;
+		  if(this.storage[index] === undefined){
+			this.storage[index]=[itemId,name,inventory];
+			index +=1;
+		  }
+	  }
+    }
+  }
+  currentInventory(){
+		for(var i = 0; i <this.maxStorage;i++){
+			if(this.storage[i] !== undefined){
+				console.log(this.storage[i]);
+			}
+		}
+	}
+}
+
+var test = new hashTable(100);
+
+test.add('01124','Bananas',30);
+test.add('24153','Apples',18);
+test.add('31025','Oranges',72);
+test.currentInventory();
+
+8.Build a system that allows digital copies of newspapers to be entered and searched by publisher and publication date. Use hash tables to store the necessary data.
+
+class hashTable{
+  constructor(max){
+    this.storage = [];
+    this.maxStorage = max;
+  }
+  hash(date,publisher){
+	var hashCode =0;
+	for (var i =0; i<=date.length;i++){
+		hashCode += date.charCodeAt(i);
+	}
+	for (var x =0; x<=publisher.length;x++){
+		hashCode += publisher.charCodeAt(x);
+	}
+	return hashCode % this.maxStorage;
+}
+  
+  add(date,publisher,newpaper){
+    var index = this.hash(date,publisher);
+    if(this.storage[index] === undefined){
+    this.storage[index]=[date,publisher,newpaper];
+    }else{
+      while(this.storage[index] !== undefined){
+		  index += 1;
+		  if(this.storage[index] === undefined){
+			this.storage[index]=[date,publisher,newpaper];
+			index +=1;
+		  }
+	  }
+    }
+  }
+	search(publishDate,publisher){
+		var index = this.hash(publishDate,publisher);
+		if(this.storage[index] === undefined){
+          return 'No results';
+		}else if(this.storage[index][1] == publishDate && this.storage[index][2] == publisher){
+			return(this.storage[index]);
+		}else{
+			while(this.storage[index][1] != publishDate && this.storage[index][2] != publisher){
+				index += 1;
+				if(this.storage[index][1] != publishDate && this.storage[index][2] != publisher){
+					return this.storage[index];
+				}
+			}
+		}
+	}	
+	
+}
+  
+var test = new hashTable();
+test.add('12/18/2018','New york Times','the death of favperson');
+test.add('05/23/1999','Washington paper', 'happy new year');
+test.search('05/23/1999','Washington paper')
+
+  constructor(max){
+    this.storage = [];
+    this.maxStorage = max;
+  }
+  hash(publishDate,publisher){
+	var hashCode =0;
+	for (var i =0; i<publishDate.length;i++){
+		hashCode += publishDate.charCodeAt(i);
+	}
+	for (var x =0; x<publisher.length;x++){
+		hashCode += publisher.charCodeAt(x);
+	}
+	return hashCode % 100;
+}
+  
+  add(date,publisher,newpaper){
+    var index = this.hash(itemId);
+    if(this.storage[index] === undefined){
+    this.storage[index]=[itemId,name,inventory];
+    }else{
+      while(this.storage[index] !== undefined){
+		  index += 1;
+		  if(this.storage[index] === undefined){
+			this.storage[index]=[itemId,name,inventory];
+			index +=1;
+		  }
+	  }
+    }
+  }
+	find(publishDate,publisher){
+		var index = this.hash(publishDate,publisher);
+		if(this.storage[index] === undefined){
+				return 'No results';
+		}
+		else if(this.storage[index][1] == publishDate && this.storage[index][2] == publisher){
+			return(this.storage[index]);
+		}
+		else{
+			while(this.storage[index][1] != publishDate && this.storage[index][2] != publisher){
+				index += 1;
+				if(this.storage[index][1] != publishDate && this.storage[index][2] != publisher){
+					return this.storage[index];
+				}
+			}
+		}
+	}
+	
+	
+  }
