@@ -22,59 +22,124 @@ A binary search tree is an unweighted, a-cyclic, directed graph.
 
 
 Programming Questions
-
-1. Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
-
-FUNCTION findValue(root, val):
-	SET curr to root
-	WHILE curr.val DOES NOT EQUAL val AND curr.left IS NOT NULL AND curr.right IS NOT NULL:
-		IF curr.right.val IS LESS THAN val:
-			curr = curr.right
-		ELSE IF curr.left.val IS GREATER THAN val:
-			curr = curr.left
-		ELSE:
-			BREAK FROM LOOP
-	IF curr.val EQUALS val:
-		RETURN true
-	ELSE:
-		RETURN false
-
-
-2. Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
-
-FUNCTION getDistance(root, n1,n2):
-	//get distance to node 1
-	SET curr to root
-	SET distanceN1 to 0
-	WHILE curr DOES NOT EQUAL n1 AND curr.left IS NOT NULL AND curr.right IS NOT NULL:
-		IF curr.right.val IS LESS THAN n1.val:
-			curr = curr.right
-			ADD 1 to distanceN1 
-		ELSE IF curr.left.val IS GREATER THAN n1.val:
-			ADD 1 to distanceN1
-			curr = curr.left
-		ELSE:
-			BREAK FROM LOOP
-
-	//if the n1 is not found
-	IF curr.val DOES NOT EQUAL n1.val:
-		RETURN
-
-	//get distance to node 2
-	SET curr to root
-	SET distanceN2 to 0
-	WHILE curr DOES NOT EQUAL n2 AND curr.left IS NOT NULL AND curr.right IS NOT NULL:
-		IF curr.right.val IS LESS THAN n2.val:
-			curr = curr.right
-			ADD 1 to distanceN2 
-		ELSE IF curr.left.val IS GREATER THAN n2.val:
-			ADD 1 to distanceN2
-			curr = curr.left
-		ELSE:
-			BREAK FROM LOOP
-
-	//if the n2 is not found
-	IF curr.val DOES NOT EQUAL n2.val:
-		RETURN
-
-	RETURN distanceN1 + distanceN2
+1.Given a Binary Search Tree and a value, write a function that checks to see whether the value exists within the tree.
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.left = null;
+    this.right = null;
+  }
+}
+class Tree {
+  constructor() {
+    this.root = null;
+  }
+  add(value) {
+    var current = this.root;
+    var node = new Node(value);
+    if (current === null){
+      this.root = node;
+    }
+    else{
+      this.findSpace(node,current);
+    }
+  }
+  findSpace(node,current){
+    if(node.value < current.value){
+      if(current.left === null){
+        current.left = node;
+      }
+      else{
+        current = current.left;
+        this.findSpace(node,current);
+      }
+      
+    }
+    else if(node.value > current.value){
+      if(current.right === null){
+        current.right = node;
+      }
+      else{
+        current = current.right;
+        this.findSpace(node,current);
+      }
+    }
+  }
+}
+function find(tree, element){
+  var current = tree.root;
+  if(current === null){
+    console.log('doesnt exist');
+  }
+  else{
+    return innerFind(current,element);
+     
+  }
+  function innerFind(current,element){
+    if(current !== null){
+      if (element < current.value){
+          current = current.left;
+          innerFind(current,element);
+      }else if(element > current.value && current !== null){
+          current = current.right;
+          innerFind(current,element);
+      
+      }else{
+        console.log(`${element} does exist within the tree.`);
+      }
+    }
+    else{
+      console.log(`${element} does not exist within the tree.`);
+    }
+}
+}
+var testTree = new Tree();
+testTree.add(8);
+testTree.add(10);
+testTree.add(3);
+testTree.add(6);
+testTree.add(1);
+testTree.add(4);
+testTree.add(7);
+testTree.add(14);
+testTree.add(13);
+find(testTree,10);
+find(testTree,23);
+2.Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
+Used with the tree above.
+function findDistance(tree,n1,n2){
+  var LCA= findLca(tree.root,n1,n2);
+  var total = distance(LCA,n1) + distance(LCA,n2);
+  console.log(total);
+ 
+  function findLca(current,n1,n2){
+    if (n1 < current.value && n2 < current.value){
+      current = current.left;
+      return findLca(current,n1,n2);
+    }
+    else if(n1 > current.value && n2 > current.value){
+      current = current.right
+      return findLca(current,n1,n2);
+    }
+    else{
+      return current;
+    }
+  }
+  function distance(current,node){
+    var i = 0;
+    while(node != current.value){
+      if (node < current.value){
+        i++;
+        current = current.left;
+      }else if (node > current.value){
+        i++;
+        current = current.right;
+      }
+    }
+    return i;
+  }
+  
+}
+findDistance(testTree,4,10)
+findDistance(testTree,8,10)
+findDistance(testTree,1,12)
