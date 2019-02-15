@@ -107,39 +107,259 @@ find(testTree,10);
 find(testTree,23);
 2.Given a Binary Search Tree and two nodes, n1 and n2, write a function that finds the distance between the two nodes.
 Used with the tree above.
-function findDistance(tree,n1,n2){
-  var LCA= findLca(tree.root,n1,n2);
-  var total = distance(LCA,n1) + distance(LCA,n2);
-  console.log(total);
- 
-  function findLca(current,n1,n2){
-    if (n1 < current.value && n2 < current.value){
-      current = current.left;
-      return findLca(current,n1,n2);
-    }
-    else if(n1 > current.value && n2 > current.value){
-      current = current.right
-      return findLca(current,n1,n2);
-    }
-    else{
-      return current;
-    }
+class Node {
+
+  constructor(value) {
+
+    this.value = value;
+
+    this.left = null;
+
+    this.right = null;
+
   }
-  function distance(current,node){
-    var i = 0;
-    while(node != current.value){
-      if (node < current.value){
-        i++;
-        current = current.left;
-      }else if (node > current.value){
-        i++;
-        current = current.right;
-      }
-    }
-    return i;
-  }
-  
+
 }
-findDistance(testTree,4,10)
-findDistance(testTree,8,10)
-findDistance(testTree,1,12)
+
+
+class Tree {
+
+  constructor() {
+
+    this.root = null;
+
+  }
+
+  add(value) {
+
+    var current = this.root;
+
+    var node = new Node(value);
+
+    if (current === null){
+
+      this.root = node;
+
+    }
+
+    else{
+
+      this.findSpace(node,current);
+
+    }
+
+  }
+
+  findSpace(node,current){
+
+    if(node.value < current.value){
+
+      if(current.left === null){
+
+        current.left = node;
+
+      }
+
+      else{
+
+        current = current.left;
+
+        this.findSpace(node,current);
+
+      }
+
+
+    }
+
+    else if(node.value > current.value){
+
+      if(current.right === null){
+
+        current.right = node;
+
+      }
+
+      else{
+
+        current = current.right;
+
+        this.findSpace(node,current);
+
+      }
+
+    }
+
+  }
+
+}
+
+function find(tree, element){
+
+  var current = tree.root;
+
+  if(current === null){
+
+    console.log('doesnt exist');
+
+  }
+
+  else{
+
+    return innerFind(current,element);
+
+
+  }
+
+
+  function innerFind(current,element){
+
+    if(current !== null){
+
+      if (element < current.value){
+
+        current = current.left;
+
+        innerFind(current,element);
+
+      }else if(element > current.value && current !== null){
+
+        current = current.right;
+
+        innerFind(current,element);
+
+
+      }else{
+ 
+       console.log(element+" does exist within the tree.");
+
+      }
+
+    }
+
+    else{
+
+      console.log(element+"does not exist within the tree.");
+
+    }
+
+  }
+
+}
+
+
+function findDistance(tree,n1,n2){
+
+
+
+  var LCA= findLca(tree.root,n1,n2);
+
+  
+  if (!LCA)
+
+    return -1;
+
+
+  
+  
+let d1 = distance(LCA,n1), d2 = distance(LCA,n2);
+
+
+  
+  if(d1 >= 0 && d2 >= 0)
+
+    return d1+d2;
+
+  else
+
+    return -1;
+
+  
+
+  function findLca(current,n1,n2){
+
+    if (!current)
+
+      return null;
+
+    
+    if (n1 < current.value && n2 < current.value){
+
+      current = current.left;
+
+      return findLca(current,n1,n2);
+
+    }
+
+    else if(n1 > current.value && n2 > current.value){
+
+      current = current.right
+
+      return findLca(current,n1,n2);
+
+    }
+
+    else{
+
+      return current;
+
+    }
+
+  }
+
+  
+ function distance(current,node){
+
+    var i = 0;
+
+    while(current && node != current.value){
+
+      if (node < current.value){
+
+        i++;
+
+        current = current.left;
+
+      }else if (node > current.value){
+
+        i++;
+
+        current = current.right;
+
+      }
+
+    }
+
+    
+    if (!current)
+
+      return -1;
+
+    
+    return i;
+
+  }
+
+}
+
+let tree = new Tree();
+
+tree.add(10);
+
+tree.add(5);
+
+tree.add(1);
+
+tree.add(6);
+
+tree.add(20);
+
+
+/*console.log(findDistance(tree, 1, 6));
+
+console.log(findDistance(tree, 5, 6));
+
+console.log(findDistance(tree, 6, 6));
+
+console.log(findDistance(tree, 1, 1));*/
+
+console.log(findDistance(tree, 11, 1));
