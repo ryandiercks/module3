@@ -1,0 +1,100 @@
+Using proper pseudo-code, describe the following primitive algorithms
+
+Washing Dishes;
+
+OBTAIN the number and type of dishes
+SORT the elements into MACHINE WASHABLE AND NON-MACHINE WASHABLE  stacks
+SORT MACHINE WASHABLE stack into follow elements
+OUTPUT silverware elements into silverware rack
+OUTPUT dishes into dishes rack
+OUTPUT bowls into top rack
+OUTPUT cups into top rack
+GOTO NON-MACHINE WASHABLE stack
+	IF sponge gun is BELOW fill point THEN
+		FILL sponge gun with soap
+WHILE items are in sink
+WASH dish
+RINSE dish
+SET dish on towel drying area
+WHEN sink is empty
+		WASH hands
+		DRY hands
+RETURN
+
+
+
+Making Coffee:
+
+POWER ON coffee maker;
+REMOVE old k-cup from coffee maker;
+IF water level IS LESS THAN fill point THEN
+		OBTAIN water bottle;
+			WHILE water is below max fill line
+				POUR water into reservoir ;
+OBTAIN k-cup from storage stack ARRAY;
+INSERT k-cup into coffee maker k-cup INPUT;
+INSERT coffee cup into coffee maker cup INPUT;
+WHILE temperature SENSOR is below optimal temperature
+	WAIT;
+DETERMINE size desired and DEPRESS button;
+WHILE coffee is filling
+	WAIT until coffee maker beep;
+REMOVE coffee cup from coffee maker;
+RETURN
+
+
+A choice of your own -- 
+
+Brushing Teeth
+IF WAKEUP or BEFORESLEEP
+    GET toothbrush
+    ADD toothpaste to toothbrush
+    ADD water to toothbrush
+    WHILE time < 120 seconds
+        SCRUB teeth with toothbrush
+    ENDWHILE
+    RINSE toothbrush
+    RINSE mouth
+    SET toothbrush back in toothbrush holder
+ENDIF
+
+
+2. As with the knot algorithm, there may be more than one way to solve the problem. It is essential to try
+ to pick the best algorithm for a situation. Name three companies who created an algorithm that made them 
+successful, e.g., Google's search algorithm. It doesn't need to be a tech example (such as a recipe or 
+manufacturing a product). Google's algorithm produces more relevant results than other search engines; what
+ about each of your cases make them stand out?
+
+
+A: Netflix utilizes the millions of bits of data they have to predict which shows and movies users would like to
+ watch through their service. Netflix has a ton of data on their watchers – including the content they watch, how
+ much of it they watch as well as demographic data. The company then uses this information to predict which content 
+will likely be successful if streamed through the service and what the common success points between them are. 
+Netflix also utilizes a well-refined recommendation algorithm to predict what users will likely want to watch.
+
+Facebook can predict likely preference patterns based on millions of pieces of demographic information and 
+user activity. Facebook can go as far as predicting the evolution and demise of romantic relationships. According 
+to data scientists at the company, relationships that last more than three months on the social network are likely 
+to survive for years. By looking at connections and communication patterns, Facebook can even predict who might be 
+in a relationship next.
+
+Wikipedia’s method relied on a simple framework and motivated users who wanted to share their knowledge without compensation. 
+The framework is as simple as it gets in the front-end world, and has not changed since it started in 2001, creating a very
+stable platform. The key to understanding Wikipedia’s success, however, is understanding the basics of Motivation, as described 
+in Dan Pink’s book, Drive. The people who contribute to Wikipedia strongly belief in its purpose to bring knowledge to anyone 
+who wants to understand what they know. They also want to be seen as experts in the field, so they contribute to demonstrate 
+that expertise. Finally, they can to this without permission – no one is directly to do this. 
+
+
+
+
+
+Hypothesize about what constitutes an efficient algorithm versus an inefficient algorithm.
+
+-an efficient algorithm is one that optimizes time and working memory to
+ complete a task (minimum amount of time and minimum amount of space and shouldn’t overload memory).
+
+-an inefficient algorithm does not optimize time or working memory. Some examples are not using keys, 
+nesting loops, using loops that take too long or that iterate through unnecessary data, and repeating 
+code that does the same thing over and over.
+
