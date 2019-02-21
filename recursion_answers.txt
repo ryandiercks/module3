@@ -1,0 +1,81 @@
+1. Define and compare recursion and iteration.
+
+Recursion is when a procedure calls itself.  Iteration is the process of repeating steps in a ‘loop’. 
+Recursion and iteration both repeatedly executes the set of instructions. The primary difference between 
+recursion and iteration is that is a recursion is a process, always applied to a function. 
+The iteration is applied to the set of instructions which we want to get repeatedly executed.
+
+2. Name five algorithms that are commonly implemented by recursion.
+Fibonacci sequence, factorial, Mergesort, Quicksort, Binary Search
+
+3. When should you use recursion, and when should you avoid recursion? Give examples for each.
+
+Recursion should be used when an algorithm can be defined as a combination of sub-results starting with known cases.
+An example of that is when you're implementing a function to calculate factorial.
+Recursion should be avoid when running straight through a date set. For example trying to find the maximum value in an array of numbers.
+
+4. Compare the recursive and iterative solutions to the three algorithms from the checkpoint (factorial, maximum, and fibonacci). What is similar, and what is different?
+
+
+`Factorial` recursive method takes fewer lines of code. Both iteration and recursion fail with negative numbers. 
+Both solutions presented also travel from the largest number down to 2, but with recursion the multiplying of the lowest numbers finishes first. 
+
+In `Maximum` method it's better to iterate through to compare each element once with 
+the previous element then replace the current maximum variable. The recursive method calls itself against the remainder or the 
+array each time requiring more work. 
+
+
+In `Finobacci` both the iterative and recursive form of this algorithm we return one if we are looking for the first or second Fibonacci number. In the 
+iterative method, we keep track of the two numbers to add in variables: one for the previous number and the other the current number. Since the first two 
+Fibonacci numbers are 1, we set up the loop to only iterate when number is greater than or equal to 3. The steps in the loop are the same steps: add the 
+two last numbers to get the next number. When the loop finishes, we return current since it holds the latest calculated number (and the one we want).  For 
+the recursive method, we call fibonacci with two less than the current number and save it as twoBack. We do the same with one less than number and save 
+it as oneBack. Finally, we add those two together and return the result. For this implementation, we call the same procedure twice in the recursive case.
+
+
+5. Given a multi-dimensional collection (such as an array) where the number of dimensions is unknown, write a recursive algorithm to count the 
+number of items in the entire collection.
+
+```
+function getCount(collection){
+  let count = collection.length;
+  collection.forEach(item => {
+  
+    if(Array.isArray(item)) {
+      count += getCount(item) - 1;
+      
+    }
+  })
+  
+  return count;
+}
+
+let test = [1,2,3, [2,3,4,5]] 
+getCount(test);
+console.log(getCount(test))
+```
+
+6. A palindrome is a word or phrase whose spelling is the same either direction (e.g., racecar). Write a recursive algorithm to determine if a given word or phrase is a palindrome.
+
+```
+function cPalindrom(word){
+  if (word.length <= 1) {
+    return true;
+  }
+  else if (word[0] === word[word.length -1]) {
+    return cPalindrom(word.slice(1, word.length -1) );
+  }
+  return false;
+};
+
+console.log(cPalindrom("racecar"));
+console.log(cPalindrom("ryan"));
+
+```
+
+>Google Easter Egg: Google the term "recursion". Google will prompt you with "Did you mean: recursion". 
+Explain why this behavior exhibits properties of recursion.
+
+This behaviour exhibits properties of ‘recursion’ as it plays on the fact that a recursive function calls itself. In the same light,
+when ‘recursion’ is typed on google, it is a self-reference to itself. It is similar to this saying "To understand recursion, 
+you must first understand recursion."
