@@ -1,0 +1,64 @@
+1. What is a real-life scenario that uses linear search?
+
+When we are looking for a contact from a phonebook, the names are listed in alphabetical order. Searching from the name and then keep going down until finding the correct one. 
+
+2. What is a real-life scenario that uses binary search?
+
+A real-life scenario would be searching for your book in a library. If you have
+books organized in alphabetical order by shelves, and you don't know which shelf contains
+your book, check the middle shelf. If not found, eliminate half of the shelves based on alphabetical
+order of your book and search the middle of the halved shelves. Continue the process until
+the book is found.
+
+3. Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using linear search?
+
+	7 iterations
+
+4. Given the alphabetically sorted collection in this checkpoint, how many iterations would it take to find the value G using binary search?
+
+	3 iterations
+
+5. Given an unsorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+Linear would be the better algorithm due to binary cutting the collection in half based on a random item. Due to binary being useless unless the data is in order from smallest to biggest.
+
+6. Given a sorted collection of a million items, which algorithm would you choose between linear search and binary search? Explain your reasoning.
+
+Binary would be best due to linear search possibly having to go the end of the collection. Since the collection is sorted, binary search must be used for a collection this large. Binary 
+search can effectively half of the collection after one iteration, if necessary. It can continue halving the collection as the middle changes and checked against input value.
+
+Programming Assignment
+1. You and a friend have set a wager to see who can find the word "Albatross" in the dictionary the fastest. Write a program to allow you to win the bet.
+
+  function binarySearch (list, target) {
+    let start  = 0;
+    let end    = list.length-1;
+    let mid = Math.floor((start + end) / 2);
+    
+    while (list[mid] !== target && start < end) {
+      if (target < list[mid]) {
+        end = mid - 1;
+      } else {
+        start = mid + 1;
+      }    
+      mid = Math.floor((start + end) / 2);
+    }
+    
+    return ((list[mid] !== target) ? -1 : (mid + 1 ));
+  }
+
+  console.log(binarySearch([1,2,3,4,5,6,7,8,9,10], 10));
+
+2. You work at a pet store, and a child has asked you to net the only white-spotted goldfish from the fish tank. Write a program that will help you net the right fish.
+
+  let fish = ['blue','grey','black','white','blue','orange','grey'];
+  
+  function linearSearch(array, target){
+    for(var i = 0; i < array.length; i++){
+      if(array[i] === target){
+        return `${target} fish is in tank ` + (i+1);
+      }
+    }
+  }
+  
+  console.log(linearSearch(fish, 'white'));
