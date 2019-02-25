@@ -1,0 +1,63 @@
+1. Write pseudocode for bubble sort.
+
+
+FUNCTION bubbleSort(collection)
+   REPEAT
+     SET swapped to false
+
+     FOR i = FIRST INDEX of collection to LAST INDEX of collection - 1
+       IF collection[i] > collection[i + 1] THEN
+         	SWAP(collection[i], collection[i + 1] )         
+SET swapped to true
+       END IF
+     END FOR
+   UNTIL swapped is FALSE
+
+   RETURN collection
+ END FUNCTION
+
+
+2. Write pseudocode for quicksort.
+
+FUNCTION quickSort(collection)
+   SET pivot to LAST INDEX of collection
+   SET greater to empty array
+   SET lesser to empty array
+
+   FOR i = FIRST INDEX of collection to LAST INDEX of collection -1
+     IF collection[i] > pivot THEN
+       APPEND collection[i] to greater
+     ELSE
+       APPEND collection[i] to lesser
+     END IF
+   END FOR
+   CALL quickSort WITH lesser RETURNING sortedLesser
+   CALL quickSort WITH greater RETURNING sortedGreater
+   CALL concatate WITH sortedlesser and sortedGreater
+END FUNCTION
+
+3. We talked about time complexity in a previous checkpoint, and how to get an idea of the efficiency of an algorithm. 
+After looking at the pseudocode for the above sorting methods, identify why merge sort and quick sort are much more 
+efficient than the others. Walking through each algorithm with a few sample collections may help.
+
+
+Like binary search, quicksort is also a divide and conquer algorithm. Quicksort has three steps. First, it picks a pivot point. 
+Quicksort then iterates over the collection and compares each item to the pivot point, if the item is greater than the pivot 
+point then it is moved to the right of the pivot point, and the item at the pivot points shifts one index to the left.
+
+After we've moved items that are greater than pivot point, quick sort recursively applies the previous step to the left 
+and right sides of the collection. 
+
+Conceptually, merge sort has two steps. Merge sort breaks a collection of n items into n sub-collections. Merge sort then 
+merges individual sub-collections to produce sorted sub-collections. It does this repeatedly until there are no sub-collections 
+to sort.
+
+Both merge sort and quicksort have better time complexity than the other sort functions.
+
+
+4. All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how
+it works. What is the ideal input for bucket sort?
+
+Bucket sort works by separating all elements into sub-arrays. Each put into a sub-array that meets its conditions. Which 
+in turn in sorted further until no more sorting can be done and is joined back into one array. The ideal input for bucket 
+sort is numerical due to being able to easily put all numbers from one to ten into a bucket then the same with twenties and thirties.  
