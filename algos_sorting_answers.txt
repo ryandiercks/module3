@@ -41,18 +41,16 @@ After looking at the pseudocode for the above sorting methods, identify why merg
 efficient than the others. Walking through each algorithm with a few sample collections may help.
 
 
-Like binary search, quicksort is also a divide and conquer algorithm. Quicksort has three steps. First, it picks a pivot point. 
-Quicksort then iterates over the collection and compares each item to the pivot point, if the item is greater than the pivot 
-point then it is moved to the right of the pivot point, and the item at the pivot points shifts one index to the left.
+Merge Sorts and Quicksort takes advantage of recursion -- the ability to for the
+functions to call themselves. The other sorting algorithms have to go through loops
+"twice" together their process to work (thus O(n^2)) while the Merge Sort and Quicksort end
+up having a slight edge (O(n log n)):
 
-After we've moved items that are greater than pivot point, quick sort recursively applies the previous step to the left 
-and right sides of the collection. 
-
-Conceptually, merge sort has two steps. Merge sort breaks a collection of n items into n sub-collections. Merge sort then 
-merges individual sub-collections to produce sorted sub-collections. It does this repeatedly until there are no sub-collections 
-to sort.
-
-Both merge sort and quicksort have better time complexity than the other sort functions.
+ Quicksort O(n log n)
+ Merge Sort O(n log n)
+ Insert Sort O(n^2)
+ Selection Sort O(n^2)
+ Bubble Sort O(n^2)
 
 
 4. All of the sorts addressed in this checkpoint are known as comparison sorts. Research bucket sort and explain how
