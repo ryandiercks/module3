@@ -1,0 +1,149 @@
+Exercises
+Submit your answers to the following questions.
+
+NOTE: Real-world examples must be your own and not based on the text or previous assignments.
+
+1. How do you find related data held in two separate data tables?
+    using the JOIN clause and identifying/specifying the primary and foreign keys
+
+2. Explain, in your own words, the difference between an INNER JOIN, LEFT OUTER JOIN, and RIGHT OUTER JOIN. Give a real-world example for each.
+    - inner join creates a result table from both tables where there's a key match
+    - left outer join create a result table for all rows selected in the left statement then including any data specified in the right statement while filling those columns with nulls where there's no match in the right
+    - right outer join is the same as left except the right side statement is primary and all selected rows on the right are included while adding in matched rows on the left if found and setting missing left row columns to null
+
+3. Define primary key and foreign key. Give a real-world example for each.
+    - A primary key is a unique identifier that only exists once in the entire table. It allows you to select a single row of data. A primary key in one table is often the foreign key in another, which allows you to link the two tables.
+    - primary key = a customer number in a customer table - a unique identifier
+    - foreign key = that same customer number, but in a customer address table where there could be many addresses for one customer - a non-unique identifier
+
+4. Define aliasing.
+    - giving a table's column name a shorter variable name
+
+5. Change this query so that you are using aliasing:
+    SELECT p.name, c.salary, c.vacation_days 
+    FROM professor AS p 
+    JOIN compensation AS c 
+    ON p.id = c.professor_id;
+
+6. Why would you use a NATURAL JOIN? Give a real-world example.
+    - when the primary and foreign key names match in both tables of a join: joining a client name table to a client address table where client ID is the primary key and also the address table's foreign key
+
+7. Using this Employee schema and data, write queries to find the following information:
+    - List all employees and all shifts.
+	SELECT employees.name, shifts.date, shifts.start_time, shifts.end_time
+	FROM scheduled_shifts
+	INNER JOIN employees
+	ON employees.id = scheduled_shifts.employee_id
+	INNER JOIN shifts
+	ON shifts.id = scheduled_shifts.shift_id
+	ORDER BY shifts.date ASC,
+	         shifts.start_time ASC;
+8. Using this Adoption schema and data, please write queries to retrieve the following information and include the results:
+
+    - Create a list of all volunteers. If the volunteer is fostering a dog, include each dog as well.
+        SELECT *
+        FROM volunteers AS v
+        LEFT JOIN dogs AS d
+        ON v.foster_dog_id=d.id;
+
+        | id | first_name |  last_name |                    address | phone_number | available_to_foster | foster_dog_id |     id |      name | gender |    age | weight |              breed | intake_date | in_foster |
+        |----|------------|------------|----------------------------|--------------|---------------------|---------------|--------|-----------|--------|--------|--------|--------------------|-------------|-----------|
+        |  2 |     Rubeus |     Hagrid | 1 Edge of Forbidden Forest | 256-667-2378 |                true |         10002 |  10002 |  Munchkin |      F |      0 |      8 | dachsund chihuahua |  2017-01-13 |    (null) |
+        |  5 |   Marjorie |    Dursley |  1990 Next Door to Fubster | 463-528-2253 |                true |         10006 |  10006 | Marmaduke |      M |      7 |    150 |         great dane |  2016-03-22 |    (null) |
+        |  4 |     Sirius |      Black |         12 Grimmauld Place | 878-666-4663 |                true |        (null) | (null) |    (null) | (null) | (null) | (null) |             (null) |      (null) |    (null) |
+        |  3 |      Remus |      Lupin |         12 Grimmauld Place | 627-283-3771 |                true |        (null) | (null) |    (null) | (null) | (null) | (null) |             (null) |      (null) |    (null) |
+        |  1 |      Albus | Dumbledore |         99 Godric's Hollow | 843-746-3649 |               false |        (null) | (null) |    (null) | (null) | (null) | (null) |             (null) |      (null) |    (null) |
+
+    
+    - The cat's name, adopter's name, and adopted date for each cat adopted within the past month to be displayed as part of the "Happy Tail" social media promotion which posts recent successful adoptions.
+        SELECT c.name, a.first_name, a.last_name, cd.date
+        FROM cats AS c
+        JOIN cat_adoptions AS cd
+        ON c.id=cd.cat_id
+        JOIN adopters AS a
+        ON cd.adopter_id=a.id
+        WHERE cd.date > (CURRENT_DATE - INTERVAL '1 MONTH'); 
+
+        |     name | first_name | last_name |       date |
+        |----------|------------|-----------|------------|
+        |    Mushi |   Arabella |      Figg | 2018-05-05 |
+        | Victoire |      Argus |     Filch | 2018-05-10 |
+
+    - Create a list of adopters who have not yet chosen a dog to adopt.
+        SELECT a.*
+        FROM adopters AS a
+        LEFT JOIN dog_adoptions AS da
+        ON a.id=da.adopter_id
+        WHERE da.adopter_id IS NULL;
+
+        | id | first_name | last_name |             address | phone_number |
+        |----|------------|-----------|---------------------|--------------|
+        |  1 |   Hermione |   Granger | 32 Granger's Street | 676-464-7837 |
+        |  2 |   Arabella |      Figg |     4 Wisteria Walk | 843-228-5239 |
+    
+    - Lists of all cats and all dogs who have not been adopted.
+        select 'cat' as Type,id, name, gender, age, ca.date
+        from cats as c left join cat_adoptions as ca
+        on c.id=ca.cat_id
+        where ca.cat_id IS NULL
+        union
+        select 'dog' as Type,id, name, gender, age, da.date
+        from dogs as d left join dog_adoptions as da
+        on d.id=da.dog_id
+        where da.dog_id IS NULL;
+
+        | type |    id |      name | gender | age |   date |
+        |------|-------|-----------|--------|-----|--------|
+        |  cat |     2 |  Seashell |      F |   7 | (null) |
+        |  cat |     5 |      Nala |      F |   1 | (null) |
+        |  dog | 10001 |    Boujee |      F |   3 | (null) |
+        |  dog | 10002 |  Munchkin |      F |   0 | (null) |
+        |  dog | 10003 |    Lassie |      F |   7 | (null) |
+        |  dog | 10004 |    Marley |      M |   0 | (null) |
+        |  dog | 10006 | Marmaduke |      M |   7 | (null) |
+                
+    - The name of the person who adopted Rosco.
+	SELECT first_name, last_name
+	FROM adopters
+	INNER JOIN dog_adoptions
+	ON adopters.id = dog_adoptions.adopter_id
+	WHERE dog_adoptions.dog_id = 10007;
+
+        | first_name | last_name |
+        |------------|-----------|
+        |      Argus |     Filch |      
+
+9. Using this Library schema and data, write queries applying the following scenarios and include the results:
+
+    - To determine if the library should buy more copies of a given book, please provide the names and position, in order, of all 
+	of the patrons with a hold (request for a book with all copies checked out) on "Advanced Potion-Making".
+	SELECT patrons.name, holds.rank
+	FROM holds
+	INNER JOIN patrons
+	ON holds.patron_id = patrons.id
+	WHERE holds.isbn = '9136884926'
+	ORDER BY holds.rank ASC;
+
+        |           name | rank |
+        |----------------|------|
+        |     Terry Boot |    1 |
+        | Cedric Diggory |    2 |        
+
+    - List all of the library patrons. If they have one or more books checked out, list the books with the patrons.
+        select p.*,b.*
+        from patrons as p
+        full outer join transactions as t
+        on p.id=t.patron_id
+        left outer join books as b
+        on t.isbn=b.isbn and t.checked_in_date is null
+        order by p.id;
+
+| id |             name |       isbn |                                   title |          author |
+|----|------------------|------------|-----------------------------------------|-----------------|
+|  1 | Hermione Granger |     (null) |                                  (null) |          (null) |
+|  1 | Hermione Granger |     (null) |                                  (null) |          (null) |
+|  2 |       Terry Boot | 9136884926 |                  Advanced Potion-Making | Libatius Borage |
+|  2 |       Terry Boot |     (null) |                                  (null) |          (null) |
+|  3 |      Padma Patil |     (null) |                                  (null) |          (null) |
+|  4 |        Cho Chang |     (null) |                                  (null) |          (null) |
+|  5 |   Cedric Diggory | 3458400871 | Fantastic Beasts and Where to Find Them |  Newt Scamander |
